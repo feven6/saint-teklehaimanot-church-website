@@ -1,0 +1,835 @@
+/* =========================================================
+   IMPORTS
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&display=swap');
+
+
+/* =========================================================
+   COLORS & GLOBAL VARIABLES
+   ========================================================= */
+
+:root {
+    --green: #183d2f;
+    --green2: #275b46;
+    --gold: #c99b45;
+    --cream: #f7f2e8;
+    --ink: #17201c;
+    --muted: #66706a;
+    --white: #fff;
+    --shadow: 0 16px 40px rgba(24, 61, 47, 0.12);
+}
+
+
+/* =========================================================
+   GLOBAL STYLES
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    color: var(--ink);
+    background: #fbfaf7;
+    line-height: 1.65;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+a {
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+/* =========================================================
+   HEADER & NAVIGATION
+   ========================================================= */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid #e9e4da;
+}
+
+.nav {
+    max-width: 1180px;
+    min-height: 78px;
+
+    margin: auto;
+    padding: 10px 24px;
+
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+
+/* Brand / Logo */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    text-decoration: none;
+
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+
+    color: var(--green);
+}
+
+.logo {
+    width: 58px;
+    height: 58px;
+
+    object-fit: contain;
+}
+
+
+/* Navigation Menu */
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    list-style: none;
+
+    margin-left: auto;
+}
+
+.nav-menu a {
+    display: block;
+
+    padding: 10px 12px;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-weight: 600;
+    font-size: 0.94rem;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    background: #eef5f0;
+    color: var(--green2);
+}
+
+
+/* Sign In / Sign Up Buttons */
+
+.nav-actions {
+    display: flex;
+    gap: 8px;
+}
+
+
+/* Mobile Menu Button */
+
+.menu-button {
+    display: none;
+
+    border: 0;
+    background: transparent;
+
+    font-size: 28px;
+    color: var(--green);
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 11px 18px;
+
+    border: 0;
+    border-radius: 999px;
+
+    font: inherit;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--green);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--green2);
+}
+
+.btn-outline {
+    background: white;
+    color: var(--green);
+
+    border: 1px solid #cad8cf;
+}
+
+
+/* =========================================================
+   HOME PAGE HERO
+   ========================================================= */
+
+.hero {
+    min-height: 520px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(9, 34, 25, 0.83),
+            rgba(9, 34, 25, 0.34)
+        ),
+        url('back-image.jpeg') center / cover;
+
+    display: flex;
+    align-items: center;
+}
+
+.hero-inner {
+    width: min(1180px, calc(100% - 48px));
+
+    margin: auto;
+    padding: 72px 0;
+
+    color: white;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+
+    letter-spacing: 0.14em;
+
+    color: #f0d8a7;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.hero h1 {
+    max-width: 820px;
+
+    margin: 12px 0 18px;
+
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(2.2rem, 5vw, 4.3rem);
+
+    line-height: 1.12;
+}
+
+.hero p {
+    max-width: 700px;
+
+    font-size: 1.08rem;
+
+    color: #f4f4ef;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 26px;
+}
+
+.hero .btn-outline {
+    background: rgba(255, 255, 255, 0.1);
+
+    color: white;
+
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+
+/* =========================================================
+   MAIN CONTENT / SECTIONS
+   ========================================================= */
+
+main {
+    min-height: 55vh;
+}
+
+.section {
+    width: min(1100px, calc(100% - 40px));
+
+    margin: auto;
+    padding: 68px 0;
+}
+
+.section-narrow {
+    max-width: 850px;
+}
+
+.section h1,
+.section h2 {
+    margin-bottom: 18px;
+
+    font-family: 'Libre Baskerville', serif;
+
+    color: var(--green);
+
+    line-height: 1.25;
+}
+
+.section h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.section h2 {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.section p {
+    margin: 0 0 18px;
+}
+
+.lead {
+    font-size: 1.15rem;
+
+    color: #435149;
+}
+
+
+/* =========================================================
+   TWO-COLUMN LAYOUT
+   ========================================================= */
+
+.grid-2 {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 34px;
+
+    align-items: center;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card {
+    padding: 28px;
+
+    background: white;
+
+    border: 1px solid #ebe7df;
+    border-radius: 18px;
+
+    box-shadow: var(--shadow);
+}
+
+
+/* =========================================================
+   IMAGES
+   ========================================================= */
+
+/* General church image */
+
+.church-photo {
+    width: 100%;
+    max-height: 430px;
+
+    object-fit: cover;
+
+    border-radius: 18px;
+
+    box-shadow: var(--shadow);
+}
+
+
+/* Saint Teklehaimanot image
+   Keeps the entire image visible so the head is not cropped.
+*/
+
+.saint-photo {
+    width: 100%;
+    height: auto;
+    max-height: 650px;
+
+    object-fit: contain;
+    object-position: center top;
+
+    border-radius: 18px;
+
+    box-shadow: var(--shadow);
+
+    display: block;
+}
+
+
+/* =========================================================
+   MISSION SECTION
+   ========================================================= */
+
+.mission {
+    background: var(--green);
+
+    color: white;
+}
+
+.mission h2 {
+    color: white;
+}
+
+.mission .section {
+    padding: 52px 0;
+}
+
+
+/* =========================================================
+   QUOTES
+   ========================================================= */
+
+.quote {
+    padding: 14px 0 14px 22px;
+
+    border-left: 4px solid var(--gold);
+
+    color: #46524c;
+
+    font-style: italic;
+}
+
+
+/* =========================================================
+   SERVICES
+   ========================================================= */
+
+.service-list {
+    display: grid;
+
+    gap: 12px;
+}
+
+.service-item {
+    display: flex;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 16px 18px;
+
+    background: white;
+
+    border: 1px solid #ebe7df;
+    border-radius: 12px;
+}
+
+.service-item strong {
+    color: var(--green);
+}
+
+
+/* =========================================================
+   EVENTS
+   ========================================================= */
+
+.events-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 14px;
+}
+
+.event {
+    padding: 18px;
+
+    background: white;
+
+    border: 1px solid #ebe7df;
+    border-radius: 14px;
+}
+
+.event .ethiopic {
+    font-size: 1.08rem;
+    font-weight: 700;
+
+    color: var(--green);
+}
+
+.event .date {
+    margin: 4px 0 0;
+
+    color: var(--muted);
+}
+
+
+/* =========================================================
+   CONTACT PAGE
+   ========================================================= */
+
+.contact-grid {
+    display: grid;
+
+    grid-template-columns: 1.15fr 0.85fr;
+
+    gap: 26px;
+}
+
+.contact-item {
+    margin: 18px 0;
+}
+
+.contact-item strong {
+    display: block;
+
+    color: var(--green);
+}
+
+
+/* Social Media Links */
+
+.socials {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.socials a {
+    padding: 10px 14px;
+
+    background: #eef5f0;
+
+    border-radius: 999px;
+
+    text-decoration: none;
+
+    color: var(--green);
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   DONATION BOX
+   ========================================================= */
+
+.donate-box {
+    margin-top: 26px;
+    padding: 20px;
+
+    background: #fff8e9;
+
+    border: 1px solid #ead7aa;
+    border-radius: 14px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    margin-top: 30px;
+
+    background: #10271f;
+
+    color: #dce6df;
+}
+
+.footer-inner {
+    width: min(1100px, calc(100% - 40px));
+
+    margin: auto;
+    padding: 34px 0;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    gap: 24px;
+}
+
+.footer a {
+    color: white;
+}
+
+
+/* =========================================================
+   SIGN IN / SIGN UP MODAL
+   ========================================================= */
+
+.modal[hidden] {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+
+    z-index: 100;
+
+    display: grid;
+    place-items: center;
+
+    padding: 20px;
+
+    background: rgba(5, 18, 13, 0.72);
+}
+
+.modal-card {
+    position: relative;
+
+    width: min(480px, 100%);
+
+    padding: 28px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+}
+
+.modal-card h2 {
+    margin-bottom: 8px;
+
+    font-family: 'Libre Baskerville', serif;
+
+    color: var(--green);
+}
+
+
+/* Close Button */
+
+.close-modal {
+    position: absolute;
+
+    top: 14px;
+    right: 18px;
+
+    border: 0;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   FORMS
+   ========================================================= */
+
+.field {
+    display: grid;
+
+    gap: 6px;
+
+    margin: 14px 0;
+}
+
+.field label {
+    font-weight: 700;
+}
+
+.field input {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #cfd7d2;
+    border-radius: 10px;
+
+    font: inherit;
+}
+
+
+/* =========================================================
+   AUTHENTICATION MESSAGES
+   ========================================================= */
+
+.auth-switch {
+    margin-top: 14px;
+}
+
+.auth-switch button {
+    border: 0;
+
+    background: none;
+
+    color: var(--green2);
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.auth-message {
+    min-height: 24px;
+
+    margin-top: 12px;
+
+    color: var(--green2);
+
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.small-note {
+    margin-top: 12px;
+
+    color: var(--muted);
+
+    font-size: 0.83rem;
+}
+
+
+/* =========================================================
+   TABLET / SMALL SCREEN
+   ========================================================= */
+
+@media (max-width: 860px) {
+
+    .nav {
+        flex-wrap: wrap;
+    }
+
+    .menu-button {
+        display: block;
+
+        margin-left: auto;
+    }
+
+    .nav-actions {
+        order: 2;
+
+        margin-left: auto;
+    }
+
+    .nav-menu {
+        display: none;
+
+        order: 3;
+
+        width: 100%;
+
+        flex-direction: column;
+        align-items: stretch;
+
+        padding: 10px 0;
+    }
+
+    .nav-menu.responsive {
+        display: flex;
+    }
+
+    .nav-menu a {
+        text-align: center;
+    }
+
+
+    /* Page layouts */
+
+    .grid-2,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .events-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* Hero */
+
+    .hero {
+        min-height: 460px;
+    }
+
+    .hero-inner {
+        padding: 54px 0;
+    }
+
+
+    /* Services */
+
+    .service-item {
+        flex-direction: column;
+
+        gap: 2px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+    .nav {
+        padding: 8px 16px;
+    }
+
+    .brand span {
+        display: none;
+    }
+
+    .nav-actions .btn {
+        padding: 9px 12px;
+
+        font-size: 0.86rem;
+    }
+
+
+    /* Main sections */
+
+    .section {
+        width: min(100% - 28px, 1100px);
+
+        padding: 48px 0;
+    }
+
+
+    /* Hero */
+
+    .hero-inner {
+        width: calc(100% - 28px);
+    }
+
+    .hero h1 {
+        font-size: 2.25rem;
+    }
+}
