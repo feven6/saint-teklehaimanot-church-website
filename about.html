@@ -28,7 +28,7 @@
 <header class="site-header">
     <nav class="nav">
 
-        <a class="brand" href="indx.html">
+        <a class="brand" href="index.html">
             <img
                 src="logo.png"
                 class="logo"
@@ -47,61 +47,13 @@
         </button>
 
         <ul class="nav-menu" id="navMenu">
-
-                <li>
-                    <a href="Home.html" data-page="home">
-                        Home
-                    </a>
-                </li>
-
-                <li>
-                    <a href="about.html" data-page="about">
-                        About
-                    </a>
-                </li>
-
-                <li>
-                    <a href="Services.html" data-page="services">
-                        Services
-                    </a>
-                </li>
-
-                <li>
-                    <a href="Events.html" data-page="events">
-                        Events
-                    </a>
-                </li>
-
-                <li>
-                    <a href="Contact.html" data-page="contact">
-                        Contact
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#donateInfo" id="donateButton">
-                        Donate
-                    </a>
-                </li>
-
+                <li><a href="index.html" data-page="home">Home</a></li>
+                <li><a href="Services.html" data-page="services">Services</a></li>
+                <li><a href="Contact.html" data-page="contact">Contact</a></li>
+                <li><a href="Events.html" data-page="events">Events</a></li>
+                <li><a href="#donateInfo" id="donateButton">Donate</a></li>
             </ul>
-        <div class="nav-actions">
-
-            <button
-                class="btn btn-outline"
-                data-auth="login"
-            >
-                Sign In
-            </button>
-
-            <button
-                class="btn btn-primary"
-                data-auth="register"
-            >
-                Sign Up
-            </button>
-
-        </div>
+        
 
     </nav>
 </header>
@@ -240,203 +192,7 @@
 </footer>
 
 
-<!-- SIGN IN / SIGN UP MODAL -->
-<div
-    class="modal"
-    id="authModal"
-    hidden
->
 
-    <div
-        class="modal-card"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Account"
-    >
-
-        <button
-            class="close-modal"
-            id="closeAuth"
-            aria-label="Close"
-        >
-            ×
-        </button>
-
-
-        <!-- SIGN IN -->
-        <div id="loginPanel">
-
-            <h2>Sign In</h2>
-
-            <p>
-                Welcome back to our community site.
-            </p>
-
-            <form id="loginForm">
-
-                <div class="field">
-
-                    <label for="loginEmail">
-                        Email
-                    </label>
-
-                    <input
-                        id="loginEmail"
-                        name="email"
-                        type="email"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="field">
-
-                    <label for="loginPassword">
-                        Password
-                    </label>
-
-                    <input
-                        id="loginPassword"
-                        name="password"
-                        type="password"
-                        required
-                    >
-
-                </div>
-
-
-                <button
-                    class="btn btn-primary"
-                    type="submit"
-                >
-                    Sign In
-                </button>
-
-            </form>
-
-
-            <p class="auth-switch">
-
-                Need an account?
-
-                <button
-                    type="button"
-                    data-auth="register"
-                >
-                    Sign up
-                </button>
-
-            </p>
-
-        </div>
-
-
-        <!-- SIGN UP -->
-        <div
-            id="registerPanel"
-            hidden
-        >
-
-            <h2>Create Account</h2>
-
-            <p>
-                Create a demo account for this website.
-            </p>
-
-
-            <form id="registerForm">
-
-                <div class="field">
-
-                    <label for="firstName">
-                        First name
-                    </label>
-
-                    <input
-                        id="firstName"
-                        name="firstName"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="field">
-
-                    <label for="registerEmail">
-                        Email
-                    </label>
-
-                    <input
-                        id="registerEmail"
-                        name="email"
-                        type="email"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="field">
-
-                    <label for="registerPassword">
-                        Password
-                    </label>
-
-                    <input
-                        id="registerPassword"
-                        name="password"
-                        type="password"
-                        minlength="6"
-                        required
-                    >
-
-                </div>
-
-
-                <button
-                    class="btn btn-primary"
-                    type="submit"
-                >
-                    Sign Up
-                </button>
-
-            </form>
-
-
-            <p class="auth-switch">
-
-                Already registered?
-
-                <button
-                    type="button"
-                    data-auth="login"
-                >
-                    Sign in
-                </button>
-
-            </p>
-
-        </div>
-
-
-        <div
-            class="auth-message"
-            id="authMessage"
-            aria-live="polite"
-        >
-        </div>
-
-
-        <p class="small-note">
-            Demo only: account data is stored in this browser.
-            A real production login requires a secure backend.
-        </p>
-
-    </div>
-
-</div>
 
 
 <script src="indx.js"></script>
