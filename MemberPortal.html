@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Community Portal | Saint Teklehaimanot EOTC</title><link rel="stylesheet" href="indx.css">
+<style>
+.portal{max-width:1000px;margin:40px auto;padding:0 22px}.portal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.portal-card{background:white;border:1px solid #e6e3db;border-radius:16px;padding:24px;margin:16px 0}
+.portal input,.portal textarea,.portal select{display:block;width:100%;padding:12px;margin:6px 0 14px;border:1px solid #b9c4bc;border-radius:8px;font:inherit}
+.portal label{font-weight:600}.portal button{margin:6px 8px 6px 0}.portal [hidden]{display:none!important}
+.portal .submission{border-bottom:1px solid #ddd;padding:14px 0}.portal .muted{color:#536258}
+.portal .notice{background:#f7f2e8;padding:16px;border-radius:12px}
+</style></head><body>
+<header class="site-header"><nav class="nav"><a class="brand" href="index.html"><img src="logo.png" class="logo" alt="Church logo"><span>St. Teklehaimanot EOTC</span></a>
+<ul class="nav-menu"><li><a href="index.html">Home</a></li><li><a href="ChurchLife.html">Church Life</a></li><li><a href="Contact.html">Contact</a></li></ul></nav></header>
+<main class="portal"><div class="eyebrow">Our Church Community</div><h1>Community Media Portal</h1>
+<p>Members can submit church photos and YouTube video links for review. Church administrators approve submissions before they appear in the public gallery.</p>
+<p class="notice" id="setupNotice">The portal is being prepared. Registration and submissions will become available after secure account services are connected.</p>
+<p id="status" role="status" aria-live="polite"></p>
+<section class="portal-card" id="authSection" hidden><h2>Member Account</h2>
+<div class="portal-grid"><form id="signupForm"><h3>Create account</h3>
+<label for="memberName">Name</label><input id="memberName" required maxlength="100" autocomplete="name">
+<label for="signupEmail">Email</label><input id="signupEmail" type="email" required autocomplete="email">
+<label for="signupPassword">Password (at least 12 characters)</label><input id="signupPassword" type="password" required minlength="12" autocomplete="new-password">
+<button class="btn btn-primary">Register</button></form>
+<form id="signinForm"><h3>Sign in</h3><label for="signinEmail">Email</label><input id="signinEmail" type="email" required autocomplete="email">
+<label for="signinPassword">Password</label><input id="signinPassword" type="password" required autocomplete="current-password">
+<button class="btn btn-outline">Sign In</button></form></div></section>
+<section class="portal-card" id="memberSection" hidden><h2>Submit Church Media</h2><p id="memberGreeting"></p>
+<button class="btn btn-outline" id="signoutButton" type="button">Sign Out</button>
+<form id="submitForm"><label for="mediaTitle">Title</label><input id="mediaTitle" required maxlength="120">
+<label for="mediaDescription">Description</label><textarea id="mediaDescription" rows="3" maxlength="1000"></textarea>
+<label for="mediaType">Submission type</label><select id="mediaType"><option value="photo">Photo upload</option><option value="video">YouTube video link</option></select>
+<div id="photoInput"><label for="mediaFile">Photo (JPG, PNG or WebP, maximum 8 MB)</label><input id="mediaFile" type="file" accept="image/jpeg,image/png,image/webp"></div>
+<div id="videoInput" hidden><label for="videoUrl">YouTube video URL</label><input id="videoUrl" type="url" placeholder="https://www.youtube.com/watch?v=..."></div>
+<label><input id="consent" type="checkbox" required style="display:inline;width:auto"> I confirm I have permission to share this media and consent from everyone identifiable, including a parent or guardian for minors.</label>
+<button class="btn btn-primary">Submit for Review</button></form>
+<h3>My Submissions</h3><div id="mySubmissions"></div></section>
+<section class="portal-card" id="adminSection" hidden><h2>Administrator Review Queue</h2><p>Only designated administrators can approve or reject submissions.</p><div id="reviewQueue"></div></section>
+<section class="portal-card"><h2>Approved Community Media</h2><p class="muted">Only administrator-approved submissions appear here.</p><div id="approvedGallery" class="portal-grid"></div></section>
+</main><footer class="footer"><div class="footer-inner"><div>Saint Teklehaimanot Eritrean Orthodox Tewahdo Church</div><div><a href="Contact.html">Contact the church</a></div></div></footer>
+<script type="module" src="portal.js"></script></body></html>
