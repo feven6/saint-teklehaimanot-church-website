@@ -74,8 +74,8 @@ async function start() {
       if (type === 'photo') {
         const file = $('mediaFile').files[0];
         if (!file || !['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 8*1024*1024) throw new Error('Choose a JPG, PNG or WebP under 8 MB.');
-        const ext = { 'image/jpeg':'jpg','image/png':'png','image/webp':'webp' }[file.type];
-        data.filePath = 'submissions/' + user.uid + '/' + docRef.id + '.' + ext;
+        
+        data.filePath = 'submissions/' + user.uid + '/' + docRef.id;
         await storage.uploadBytes(storage.ref(bucket,data.filePath),file,{contentType:file.type});
       } else {
         const id = youtubeId($('videoUrl').value);
