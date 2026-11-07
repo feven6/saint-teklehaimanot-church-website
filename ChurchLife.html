@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Photos, worship videos, livestream information and community stories from Saint Teklehaimanot Eritrean Orthodox Tewahdo Church.">
+<title>Church Life | Saint Teklehaimanot EOTC</title>
+<link rel="stylesheet" href="indx.css">
+<style>
+.life-hero{background:linear-gradient(125deg,#183d2f,#275b46);color:white;padding:72px 24px;text-align:center}
+.life-hero h1{color:white;margin:12px auto}
+.life-hero p{max-width:680px;margin:auto}
+.life-wrap{max-width:1100px;margin:auto;padding:52px 24px}
+.life-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:22px}
+.life-card{border:1px solid #e6e3db;border-radius:18px;background:#fff;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,.04)}
+.life-card img{width:100%;height:240px;object-fit:cover}
+.life-card-body{padding:24px}
+.life-card h3{margin-bottom:8px}
+.life-note{padding:22px;background:#f7f2e8;border-radius:16px;margin-top:18px}
+.life-placeholder{min-height:180px;display:flex;align-items:center;justify-content:center;background:#eef5f0;color:#275b46;text-align:center;padding:24px;font-weight:600}
+.life-video{aspect-ratio:16/9;background:#eef5f0;display:flex;align-items:center;justify-content:center;border-radius:16px;padding:30px;text-align:center}
+.life-wrap h2{margin-bottom:12px}
+</style>
+</head>
+<body>
+<header class="site-header"><nav class="nav">
+<a class="brand" href="index.html"><img src="logo.png" class="logo" alt="Church logo"><span>St. Teklehaimanot EOTC</span></a>
+<button class="menu-button" id="menuButton" aria-label="Open navigation" aria-expanded="false">☰</button>
+<ul class="nav-menu" id="navMenu">
+<li><a href="index.html" data-page="home">Home</a></li>
+<li><a href="Services.html" data-page="services">Services</a></li>
+<li><a href="Contact.html" data-page="contact">Contact</a></li>
+<li><a href="Events.html" data-page="events">Events</a></li>
+<li><a href="ChurchLife.html" data-page="church-life">Church Life</a></li>
+<li><a href="#donateInfo" id="donateButton">Donate</a></li>
+</ul>
+<div class="nav-actions"><button type="button" class="btn btn-outline" data-auth="login">Sign In</button><button type="button" class="btn btn-primary" data-auth="register">Sign Up</button></div>
+</nav></header>
+<main>
+<section class="life-hero"><div class="eyebrow">Faith • Worship • Community</div><h1>Life at Saint Teklehaimanot</h1><p>Explore our worship, celebrations and community life. Photos, videos and stories will be added with permission.</p></section>
+<section class="life-wrap" id="live"><h2>Watch Live</h2><p>Sunday worship and special events may be streamed here when a church livestream link is available.</p><div class="life-video"><div><h3>Livestream coming soon</h3><p>We will add our official YouTube Live video or channel link when it is available.</p></div></div><div class="life-note">To broadcast live, the church will need an account with a streaming platform such as YouTube. This page can then embed the livestream.</div></section>
+<section class="life-wrap" id="gallery"><h2>Church Photo Gallery</h2><p>A growing collection of moments from our parish.</p><div class="life-grid"><article class="life-card"><img src="church.jpeg" alt="Saint Teklehaimanot church community"><div class="life-card-body"><h3>Our Community</h3><p>A photo from our existing church website.</p></div></article><article class="life-card"><div class="life-placeholder">Celebrations and feast days</div><div class="life-card-body"><h3>Church Celebrations</h3><p>Photos will be added here with permission.</p></div></article><article class="life-card"><div class="life-placeholder">Youth and community activities</div><div class="life-card-body"><h3>Community Activities</h3><p>Share moments from church gatherings and events.</p></div></article></div></section>
+<section class="life-wrap" id="videos"><h2>Videos &amp; Memories</h2><div class="life-grid"><article class="life-card"><div class="life-placeholder">Recorded worship services</div><div class="life-card-body"><h3>Sunday Worship</h3><p>Recorded services can be added here using YouTube video links.</p></div></article><article class="life-card"><div class="life-placeholder">Special celebrations</div><div class="life-card-body"><h3>Church Events</h3><p>Videos of celebrations and community activities can be shared here.</p></div></article></div></section>
+<section class="life-wrap" id="people"><h2>Meet Our Church Family</h2><p>Learn about the people who serve and support our parish.</p><div class="life-grid"><article class="life-card"><div class="life-placeholder">Priest photo and introduction</div><div class="life-card-body"><h3>Our Priests</h3><p>Names, photos and short introductions will be added after approval.</p></div></article><article class="life-card"><div class="life-placeholder">Deacons and ministry leaders</div><div class="life-card-body"><h3>Church Leaders</h3><p>Meet those serving in our church ministries.</p></div></article><article class="life-card"><div class="life-placeholder">Community member stories</div><div class="life-card-body"><h3>Our Members</h3><p>Voluntary introductions and stories from our church family.</p></div></article></div><div class="life-note">Please obtain permission before posting identifiable photos, names or videos. For children, obtain permission from a parent or guardian.</div></section>
+<section class="life-wrap" id="donateInfo"><h2>Share a Church Memory</h2><p>Have a photo or video you would like considered for the website? Please contact the church first so it can be reviewed before publication.</p><p><a class="btn btn-primary" href="mailto:steklehaimanot.eotc@gmail.com?subject=Church%20Life%20Media%20Submission">Contact the Church</a></p></section>
+</main>
+<footer class="footer"><div class="footer-inner"><div><strong>Saint Teklehaimanot Eritrean Orthodox Tewahdo Church</strong><br>Des Moines area, Iowa</div><div>3506 Hillsdale Dr, Urbandale, IA 50322<br><a href="mailto:steklehaimanot.eotc@gmail.com">steklehaimanot.eotc@gmail.com</a></div></div></footer>
+<!-- Interactive JavaScript portfolio demo: no server or permanent account storage -->
+<div class="modal" id="authModal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-label="Demo account" aria-describedby="demoNotice">
+    <button type="button" class="close-modal" id="closeAuth" aria-label="Close">×</button>
+    <div id="loginPanel">
+      <h2>Sign In (Demo)</h2>
+      <p>Try the JavaScript demo with a fictional account created during this visit.</p>
+      <form id="loginForm">
+        <div class="field"><label for="loginEmail">Email</label><input id="loginEmail" name="email" type="email" autocomplete="off" required></div>
+        <div class="field"><label for="loginPassword">Demo password</label><input id="loginPassword" name="password" type="password" autocomplete="off" required></div>
+        <button class="btn btn-primary" type="submit">Sign In</button>
+      </form>
+      <p class="auth-switch">Need a demo account? <button type="button" data-auth="register">Sign up</button></p>
+    </div>
+    <div id="registerPanel" hidden>
+      <h2>Create Demo Account</h2>
+      <p>Practice JavaScript form validation. Use made-up details only.</p>
+      <form id="registerForm">
+        <div class="field"><label for="firstName">First name</label><input id="firstName" name="firstName" autocomplete="off" required></div>
+        <div class="field"><label for="registerEmail">Email</label><input id="registerEmail" name="email" type="email" autocomplete="off" required></div>
+        <div class="field"><label for="registerPassword">Demo password</label><input id="registerPassword" name="password" type="password" minlength="6" autocomplete="off" required></div>
+        <button class="btn btn-primary" type="submit">Sign Up</button>
+      </form>
+      <p class="auth-switch">Already created a demo account? <button type="button" data-auth="login">Sign in</button></p>
+    </div>
+    <div class="auth-message" id="authMessage" aria-live="polite"></div>
+    <p class="small-note" id="demoNotice">Portfolio demonstration only. Do not use a real email or password. Nothing is sent to a server or saved permanently. Demo accounts disappear when this page is reloaded.</p>
+  </div>
+</div>
+
+<script src="indx.js"></script><script>document.querySelector('[data-page="church-life"]')?.classList.add('active');</script>
+</body></html>
