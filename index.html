@@ -68,7 +68,11 @@
             
             
 
-        </nav>
+          <div class="nav-actions">
+  <button type="button" class="btn btn-outline" data-auth="login">Sign In</button>
+  <button type="button" class="btn btn-primary" data-auth="register">Sign Up</button>
+</div>
+</nav>
 
     </header>
 
@@ -275,7 +279,37 @@
 
     
 
-    <script src="indx.js"></script>
+    <!-- Interactive JavaScript portfolio demo: no server or permanent account storage -->
+<div class="modal" id="authModal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-label="Demo account" aria-describedby="demoNotice">
+    <button type="button" class="close-modal" id="closeAuth" aria-label="Close">×</button>
+    <div id="loginPanel">
+      <h2>Sign In (Demo)</h2>
+      <p>Try the JavaScript demo with a fictional account created during this visit.</p>
+      <form id="loginForm">
+        <div class="field"><label for="loginEmail">Email</label><input id="loginEmail" name="email" type="email" autocomplete="off" required></div>
+        <div class="field"><label for="loginPassword">Demo password</label><input id="loginPassword" name="password" type="password" autocomplete="off" required></div>
+        <button class="btn btn-primary" type="submit">Sign In</button>
+      </form>
+      <p class="auth-switch">Need a demo account? <button type="button" data-auth="register">Sign up</button></p>
+    </div>
+    <div id="registerPanel" hidden>
+      <h2>Create Demo Account</h2>
+      <p>Practice JavaScript form validation. Use made-up details only.</p>
+      <form id="registerForm">
+        <div class="field"><label for="firstName">First name</label><input id="firstName" name="firstName" autocomplete="off" required></div>
+        <div class="field"><label for="registerEmail">Email</label><input id="registerEmail" name="email" type="email" autocomplete="off" required></div>
+        <div class="field"><label for="registerPassword">Demo password</label><input id="registerPassword" name="password" type="password" minlength="6" autocomplete="off" required></div>
+        <button class="btn btn-primary" type="submit">Sign Up</button>
+      </form>
+      <p class="auth-switch">Already created a demo account? <button type="button" data-auth="login">Sign in</button></p>
+    </div>
+    <div class="auth-message" id="authMessage" aria-live="polite"></div>
+    <p class="small-note" id="demoNotice">Portfolio demonstration only. Do not use a real email or password. Nothing is sent to a server or saved permanently. Demo accounts disappear when this page is reloaded.</p>
+  </div>
+</div>
+
+<script src="indx.js"></script>
 
     <script>
         document
