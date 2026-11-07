@@ -1,0 +1,17 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /submissions/{uid}/{id} {
+      // Approved media can be displayed publicly. All other uploads stay private.
+      allow read: if firestore.exists(/databases/(default)/documents/submissions/$(id))
+        && firestore.get(/databases/(default)/documents/submissions/$(id)).data.status == 'approved'
+        && firestore.get(/databases/(default)/documents/submissions/$(id)).data.ownerId == uid;
+      allow create: if request.auth != null
+        && request.auth.uid == uid
+        && request.auth.token.email_verified == true
+        && request.resource.size <= 8 * 1024 * 1024
+        && request.resource.contentType.matches('image/(jpeg|png|webp)');
+      allow update, delete: if false;
+    }
+  }
+}
