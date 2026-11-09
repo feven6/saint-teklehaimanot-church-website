@@ -42,6 +42,23 @@ async function start() {
     catch (err) { status(err.message); }
   });
   $('signoutButton').addEventListener('click', () => auth.signOut(account));
+  $('sendVerificationButton').addEventListener('click', async () => {
+    if (!user) return;
+    try {
+      await auth.sendEmailVerification(user);
+      status('Verification email sent. Check your inbox and spam folder, then click the link in the email.');
+    } catch (err) { status('Unable to send verification email: ' + err.message); }
+  });
+  $('checkVerificationButton').addEventListener('click', async () => {
+    if (!user) return;
+    try {
+      await user.reload();
+      await user.getIdToken(true);
+      $('verificationActions').hidden = user.emailVerified;
+      $('memberGreeting').textContent = 'Signed in as ' + (user.displayName || user.email) + (user.emailVerified ? '' : ' — verify your email to submit');
+      status(user.emailVerified ? 'Email verified! You can now submit videos.' : 'Email is not verified yet. Open the verification link sent to your email.');
+    } catch (err) { status('Unable to check verification: ' + err.message); }
+  });
 
   auth.onAuthStateChanged(account, async next => {
     user = next; admin = false;
@@ -50,6 +67,7 @@ async function start() {
     $('adminSection').hidden = true;
     if (user) {
       await user.reload();
+      $('verificationActions').hidden = user.emailVerified;
       $('memberGreeting').textContent = 'Signed in as ' + (user.displayName || user.email) + (user.emailVerified ? '' : ' — verify your email to submit');
       try { admin = (await db.getDoc(db.doc(firestore,'admins',user.uid))).exists(); } catch {}
       $('adminSection').hidden = !admin;
@@ -64,6 +82,7 @@ async function start() {
     try {
       await user.reload();
       if (!user.emailVerified) throw new Error('Verify your email before submitting.');
+      await user.getIdToken(true);
       const type = $('mediaType').value, title = $('mediaTitle').value.trim(), description = $('mediaDescription').value.trim();
       const docRef = db.doc(db.collection(firestore,'submissions'));
       const data = { ownerId:user.uid, ownerName:user.displayName || 'Church member', title, description, type, status:'pending', createdAt:db.serverTimestamp() };

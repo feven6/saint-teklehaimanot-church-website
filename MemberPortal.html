@@ -25,7 +25,7 @@
 <label for="signinPassword">Password</label><input id="signinPassword" type="password" required autocomplete="current-password">
 <button class="btn btn-outline">Sign In</button></form></div></section>
 <section class="portal-card" id="memberSection" hidden><h2>Submit Church Videos</h2><p class="muted">YouTube links only. Photo uploads will return later.</p><p id="memberGreeting"></p>
-<button class="btn btn-outline" id="signoutButton" type="button">Sign Out</button>
+<div id="verificationActions" hidden><p class="muted">Verify your email address before submitting church videos.</p><button class="btn btn-outline" id="sendVerificationButton" type="button">Send Verification Email</button><button class="btn btn-outline" id="checkVerificationButton" type="button">I Verified My Email</button></div><button class="btn btn-outline" id="signoutButton" type="button">Sign Out</button>
 <form id="submitForm"><label for="mediaTitle">Title</label><input id="mediaTitle" required maxlength="120">
 <label for="mediaDescription">Description</label><textarea id="mediaDescription" rows="3" maxlength="1000"></textarea>
 <label for="mediaType">Submission type</label><select id="mediaType"><option value="video">YouTube video link</option></select>
