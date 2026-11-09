@@ -5,14 +5,13 @@ if (configured) {
   try { await start(); } catch (err) { status('Portal unavailable: ' + err.message); }
 }
 async function start() {
-  const [{ initializeApp }, auth, db, storage] = await Promise.all([
+  const [{ initializeApp }, auth, db] = await Promise.all([
     import('https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js'),
     import('https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js'),
-    import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js'),
-    import('https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js')
+    import('https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js')
   ]);
   const app = initializeApp(firebaseConfig);
-  const account = auth.getAuth(app), firestore = db.getFirestore(app), bucket = storage.getStorage(app);
+  const account = auth.getAuth(app), firestore = db.getFirestore(app);
   $('setupNotice').hidden = true; $('authSection').hidden = false;
   let user = null, admin = false;
   const safe = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -43,10 +42,7 @@ async function start() {
     catch (err) { status(err.message); }
   });
   $('signoutButton').addEventListener('click', () => auth.signOut(account));
-  $('mediaType').addEventListener('change', () => {
-    $('photoInput').hidden = $('mediaType').value !== 'photo';
-    $('videoInput').hidden = $('mediaType').value !== 'video';
-  });
+
   auth.onAuthStateChanged(account, async next => {
     user = next; admin = false;
     $('authSection').hidden = !!user;
@@ -71,19 +67,12 @@ async function start() {
       const type = $('mediaType').value, title = $('mediaTitle').value.trim(), description = $('mediaDescription').value.trim();
       const docRef = db.doc(db.collection(firestore,'submissions'));
       const data = { ownerId:user.uid, ownerName:user.displayName || 'Church member', title, description, type, status:'pending', createdAt:db.serverTimestamp() };
-      if (type === 'photo') {
-        const file = $('mediaFile').files[0];
-        if (!file || !['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 8*1024*1024) throw new Error('Choose a JPG, PNG or WebP under 8 MB.');
-        
-        data.filePath = 'submissions/' + user.uid + '/' + docRef.id;
-        await storage.uploadBytes(storage.ref(bucket,data.filePath),file,{contentType:file.type});
-      } else {
-        const id = youtubeId($('videoUrl').value);
-        if (!id) throw new Error('Enter a valid YouTube video URL.');
-        data.videoId = id;
-      }
+      if (type !== 'video') throw new Error('Only YouTube video links are currently supported.');
+      const id = youtubeId($('videoUrl').value);
+      if (!id) throw new Error('Enter a valid YouTube video URL.');
+      data.videoId = id;
       await db.setDoc(docRef,data);
-      $('submitForm').reset(); $('photoInput').hidden = false; $('videoInput').hidden = true;
+      $('submitForm').reset();
       status('Submitted! An administrator will review your media before publication.');
       await loadMine(); if (admin) await loadQueue();
     } catch(err) { status(err.message); }
@@ -127,11 +116,7 @@ async function start() {
         node.className = 'portal-card';
         const h = document.createElement('h3'); h.textContent = d.title; node.append(h);
         const p = document.createElement('p'); p.textContent = d.description || ''; node.append(p);
-        if (d.type === 'photo' && d.filePath) {
-          const img = document.createElement('img'); img.alt = d.title; img.loading='lazy';
-          img.src = await storage.getDownloadURL(storage.ref(bucket,d.filePath));
-          node.append(img);
-        } else if (d.type === 'video' && d.videoId && /^[\w-]{11}$/.test(d.videoId)) {
+        if (d.type === 'video' && d.videoId && /^[\w-]{11}$/.test(d.videoId)) {
           const a = document.createElement('a'); a.href='https://www.youtube.com/watch?v='+d.videoId; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent='Watch on YouTube'; node.append(a);
         }
         return node;
