@@ -12,7 +12,7 @@
 <header class="site-header"><nav class="nav"><a class="brand" href="index.html"><img src="logo.png" class="logo" alt="Church logo"><span>St. Teklehaimanot EOTC</span></a>
 <ul class="nav-menu"><li><a href="index.html">Home</a></li><li><a href="ChurchLife.html">Church Life</a></li><li><a href="Contact.html">Contact</a></li></ul></nav></header>
 <main class="portal"><div class="eyebrow">Our Church Community</div><h1>Community Media Portal</h1>
-<p>Members can submit church photos and YouTube video links for review. Church administrators approve submissions before they appear in the public gallery.</p>
+<p>Members can submit YouTube video links for review. Photo uploads are temporarily unavailable. Church administrators approve submissions before they appear in the public gallery.</p>
 <p class="notice" id="setupNotice">The portal is being prepared. Registration and submissions will become available after secure account services are connected.</p>
 <p id="status" role="status" aria-live="polite"></p>
 <section class="portal-card" id="authSection" hidden><h2>Member Account</h2>
@@ -24,13 +24,12 @@
 <form id="signinForm"><h3>Sign in</h3><label for="signinEmail">Email</label><input id="signinEmail" type="email" required autocomplete="email">
 <label for="signinPassword">Password</label><input id="signinPassword" type="password" required autocomplete="current-password">
 <button class="btn btn-outline">Sign In</button></form></div></section>
-<section class="portal-card" id="memberSection" hidden><h2>Submit Church Media</h2><p id="memberGreeting"></p>
+<section class="portal-card" id="memberSection" hidden><h2>Submit Church Videos</h2><p class="muted">YouTube links only. Photo uploads will return later.</p><p id="memberGreeting"></p>
 <button class="btn btn-outline" id="signoutButton" type="button">Sign Out</button>
 <form id="submitForm"><label for="mediaTitle">Title</label><input id="mediaTitle" required maxlength="120">
 <label for="mediaDescription">Description</label><textarea id="mediaDescription" rows="3" maxlength="1000"></textarea>
-<label for="mediaType">Submission type</label><select id="mediaType"><option value="photo">Photo upload</option><option value="video">YouTube video link</option></select>
-<div id="photoInput"><label for="mediaFile">Photo (JPG, PNG or WebP, maximum 8 MB)</label><input id="mediaFile" type="file" accept="image/jpeg,image/png,image/webp"></div>
-<div id="videoInput" hidden><label for="videoUrl">YouTube video URL</label><input id="videoUrl" type="url" placeholder="https://www.youtube.com/watch?v=..."></div>
+<label for="mediaType">Submission type</label><select id="mediaType"><option value="video">YouTube video link</option></select>
+<div id="videoInput"><label for="videoUrl">YouTube video URL</label><input id="videoUrl" type="url" placeholder="https://www.youtube.com/watch?v=..."></div>
 <label><input id="consent" type="checkbox" required style="display:inline;width:auto"> I confirm I have permission to share this media and consent from everyone identifiable, including a parent or guardian for minors.</label>
 <button class="btn btn-primary">Submit for Review</button></form>
 <h3>My Submissions</h3><div id="mySubmissions"></div></section>
