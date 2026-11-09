@@ -71,9 +71,20 @@ async function start() {
       $('memberGreeting').textContent = 'Signed in as ' + (user.displayName || user.email) + (user.emailVerified ? '' : ' — verify your email to submit');
       try { admin = (await db.getDoc(db.doc(firestore,'admins',user.uid))).exists(); } catch {}
       $('adminSection').hidden = !admin;
-      await loadMine();
-      if (admin) await loadQueue();
+      try {
+        await loadMine();
+      } catch (err) {
+        status('Unable to load your submissions: ' + err.message);
+      }
+      if (admin) {
+        try {
+          await loadQueue();
+        } catch (err) {
+          status('Unable to load administrator queue: ' + err.message);
+        }
+      }
     }
+    // The public gallery must load even if a member/admin query fails.
     await loadApproved();
   });
   $('submitForm').addEventListener('submit', async e => {
