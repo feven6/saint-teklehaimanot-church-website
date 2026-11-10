@@ -107,12 +107,35 @@ async function start() {
       await loadMine(); if (admin) await loadQueue();
     } catch(err) { status(err.message); }
   });
-  function renderItem(item) {
-    const d = item.data(), wrapper = document.createElement('div');
-    wrapper.className = 'submission';
-    wrapper.innerHTML = '<strong>'+safe(d.title)+'</strong> <small>('+safe(d.status)+')</small><p>'+safe(d.description)+'</p>';
-    return wrapper;
+  
+function renderItem(item) {
+  const d = item.data();
+  const wrapper = document.createElement('div');
+
+  wrapper.className = 'submission';
+
+  wrapper.innerHTML =
+    '<strong>' + safe(d.title) + '</strong> ' +
+    '<small>(' + safe(d.status) + ')</small>' +
+    '<p>' + safe(d.description || '') + '</p>';
+
+  // Add a video link for administrators and members.
+  if (d.type === 'video' &&
+      d.videoId &&
+      /^[A-Za-z0-9_-]{11}$/.test(d.videoId)) {
+
+    const link = document.createElement('a');
+    link.href = 'https://www.youtube.com/watch?v=' + d.videoId;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = '▶ Watch on YouTube';
+
+    wrapper.appendChild(link);
   }
+
+  return wrapper;
+}
+
   async function loadMine() {
     if (!user) return;
     const result = await db.getDocs(db.query(db.collection(firestore,'submissions'),db.where('ownerId','==',user.uid)));

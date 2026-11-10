@@ -1,0 +1,25 @@
+{
+  "name": "saint-teklehaimanot-church-website",
+  "version": "1.0.0",
+  "description": "A responsive multi-page community website built with HTML, CSS, and JavaScript.",
+  "main": "firebase-config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/feven6/saint-teklehaimanot-church-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/feven6/saint-teklehaimanot-church-website/issues"
+  },
+  "homepage": "https://github.com/feven6/saint-teklehaimanot-church-website#readme",
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "^6.0.0",
+    "firebase": "^13.2.0"
+  }
+}
