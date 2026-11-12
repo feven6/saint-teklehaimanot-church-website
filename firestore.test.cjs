@@ -95,6 +95,7 @@ async function main() {
       doc(admin.firestore(), "submissions", "test-video"),
       {
         status: "approved",
+        destination: "community",
         reviewedBy: "admin1",
         reviewedAt: serverTimestamp()
       }
@@ -273,6 +274,40 @@ async function main() {
 
     console.log("PASS: Administrators can remove approved videos.");
 
+
+    // Test 15: Administrator can approve a video for Celebrations.
+    await testEnv.withSecurityRulesDisabled(async context => {
+      await setDoc(doc(context.firestore(), "submissions", "celebration-video"), {
+        ownerId: "member2", ownerName: "Member", title: "Feast Day",
+        description: "", type: "video", videoId: "abcdefghijk",
+        status: "pending", createdAt: serverTimestamp()
+      });
+    });
+    await assertSucceeds(updateDoc(doc(admin.firestore(), "submissions", "celebration-video"), {
+      status: "approved", destination: "celebrations",
+      reviewedBy: "admin1", reviewedAt: serverTimestamp()
+    }));
+    console.log("PASS: Administrator can publish to Celebrations.");
+
+    // Test 16: Members cannot choose the publication destination.
+    await assertFails(updateDoc(doc(db, "submissions", "celebration-video"), {
+      destination: "community"
+    }));
+    console.log("PASS: Members cannot change destinations.");
+
+    // Test 17: An administrator cannot use an unrecognized destination.
+    await testEnv.withSecurityRulesDisabled(async context => {
+      await setDoc(doc(context.firestore(), "submissions", "bad-destination"), {
+        ownerId: "member2", ownerName: "Member", title: "Test",
+        description: "", type: "video", videoId: "abcdefghijk",
+        status: "pending", createdAt: serverTimestamp()
+      });
+    });
+    await assertFails(updateDoc(doc(admin.firestore(), "submissions", "bad-destination"), {
+      status: "approved", destination: "private",
+      reviewedBy: "admin1", reviewedAt: serverTimestamp()
+    }));
+    console.log("PASS: Unknown destinations are rejected.");
 
     // Test 14: Visitors cannot view removed videos.
     await assertFails(
