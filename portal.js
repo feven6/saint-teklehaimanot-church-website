@@ -145,13 +145,29 @@ function renderItem(item) {
     const result = await db.getDocs(db.query(db.collection(firestore,'submissions'),db.where('status','==','pending')));
     const elements = result.docs.map(doc => {
       const node = renderItem(doc);
+      // The administrator chooses where an approved video will appear.
+      const destinationLabel = document.createElement('label');
+      destinationLabel.textContent = 'Publish video to: ';
+      const destination = document.createElement('select');
+      destination.setAttribute('aria-label', 'Video publication destination');
+      for (const [value, label] of [['community', 'Community Videos'], ['celebrations', 'Celebrations']]) {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = label;
+        destination.append(option);
+      }
+      destinationLabel.append(destination);
+      node.append(destinationLabel);
+
       for (const action of ['approved','rejected']) {
         const button = document.createElement('button');
         button.className = 'btn btn-outline';
         button.textContent = action === 'approved' ? 'Approve' : 'Reject';
         button.addEventListener('click',async () => {
           try {
-            await db.updateDoc(doc.ref,{status:action,reviewedBy:user.uid,reviewedAt:db.serverTimestamp()});
+            const changes = {status:action,reviewedBy:user.uid,reviewedAt:db.serverTimestamp()};
+            if (action === 'approved') changes.destination = destination.value;
+            await db.updateDoc(doc.ref, changes);
             status('Submission '+action+'.'); await loadQueue(); await loadApproved();
           } catch(err) { status(err.message); }
         });
