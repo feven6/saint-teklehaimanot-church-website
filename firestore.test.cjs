@@ -95,6 +95,7 @@ async function main() {
       doc(admin.firestore(), "submissions", "test-video"),
       {
         status: "approved",
+        destination: "community",
         reviewedBy: "admin1",
         reviewedAt: serverTimestamp()
       }
