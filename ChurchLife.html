@@ -41,6 +41,7 @@
 <section class="life-wrap" id="live"><h2>Watch Live</h2><p>Sunday worship and special events may be streamed here when a church livestream link is available.</p><div class="life-video"><div><h3>Livestream coming soon</h3><p>We will add our official YouTube Live video or channel link when it is available.</p></div></div><div class="life-note">To broadcast live, the church will need an account with a streaming platform such as YouTube. This page can then embed the livestream.</div></section>
 <section class="life-wrap"><h2>Community Media Portal</h2><p>We are preparing a member submission area where church members can share photos and YouTube videos for administrator review. Registration will open after the secure account system is configured.</p><a class="btn btn-outline" href="MemberPortal.html">View Portal Preview</a></section>
 <section class="life-wrap" id="gallery"><h2>Church Photo Gallery</h2><p>A growing collection of moments from our parish.</p><div class="life-grid"><article class="life-card"><img src="church.jpeg" alt="Saint Teklehaimanot church community"><div class="life-card-body"><h3>Our Community</h3><p>A photo from our existing church website.</p></div></article><article class="life-card"><div class="life-placeholder">Celebrations and feast days</div><div class="life-card-body"><h3>Church Celebrations</h3><p>Photos will be added here with permission.</p></div></article><article class="life-card"><div class="life-placeholder">Youth and community activities</div><div class="life-card-body"><h3>Community Activities</h3><p>Share moments from church gatherings and events.</p></div></article></div></section>
+<section class="life-wrap" id="celebrations"><h2>Church Celebrations</h2><p>Approved videos of church feast days, celebrations and special gatherings.</p><p id="celebrationVideoStatus" role="status" aria-live="polite">Loading celebration videos…</p><div id="celebrationChurchVideos" class="life-grid"></div></section>
 <section class="life-wrap" id="videos"><h2>Videos &amp; Memories</h2><div class="life-grid"><article class="life-card"><div class="life-placeholder">Recorded worship services</div><div class="life-card-body"><h3>Sunday Worship</h3><p>Recorded services can be added here using YouTube video links.</p></div></article><article class="life-card"><div class="life-placeholder">Special celebrations</div><div class="life-card-body"><h3>Church Events</h3><p>Videos of celebrations and community activities can be shared here.</p></div></article></div><h3>Approved Community Videos</h3><p>Videos shared by members and approved by church administrators.</p><p id="approvedVideoStatus" role="status" aria-live="polite">Loading approved videos…</p><div id="approvedChurchVideos" class="life-grid"></div></section>
 <section class="life-wrap" id="people"><h2>Meet Our Church Family</h2><p>Learn about the people who serve and support our parish.</p><div class="life-grid"><article class="life-card"><div class="life-placeholder">Priest photo and introduction</div><div class="life-card-body"><h3>Our Priests</h3><p>Names, photos and short introductions will be added after approval.</p></div></article><article class="life-card"><div class="life-placeholder">Deacons and ministry leaders</div><div class="life-card-body"><h3>Church Leaders</h3><p>Meet those serving in our church ministries.</p></div></article><article class="life-card"><div class="life-placeholder">Community member stories</div><div class="life-card-body"><h3>Our Members</h3><p>Voluntary introductions and stories from our church family.</p></div></article></div><div class="life-note">Please obtain permission before posting identifiable photos, names or videos. For children, obtain permission from a parent or guardian.</div></section>
 <section class="life-wrap" id="donateInfo"><h2>Share a Church Memory</h2><p>Have a photo or video you would like considered for the website? Please contact the church first so it can be reviewed before publication.</p><p><a class="btn btn-primary" href="mailto:steklehaimanot.eotc@gmail.com?subject=Church%20Life%20Media%20Submission">Contact the Church</a></p></section>
@@ -89,7 +90,12 @@ try {
   const db = getFirestore(app);
   const snapshot = await getDocs(query(collection(db, 'submissions'), where('status', '==', 'approved')));
   const videos = snapshot.docs.map(doc => doc.data()).filter(item => item.type === 'video' && /^[A-Za-z0-9_-]{11}$/.test(item.videoId || ''));
-  notice.textContent = videos.length ? '' : 'No approved community videos yet.';
+  const celebrations = videos.filter(item => item.destination === 'celebrations');
+  const community = videos.filter(item => item.destination !== 'celebrations');
+  const celebrationTarget = document.getElementById('celebrationChurchVideos');
+  const celebrationNotice = document.getElementById('celebrationVideoStatus');
+  notice.textContent = community.length ? '' : 'No approved community videos yet.';
+  celebrationNotice.textContent = celebrations.length ? '' : 'No celebration videos yet.';
   for (const video of videos) {
     const card = document.createElement('article');
     card.className = 'life-card';
@@ -110,11 +116,12 @@ try {
     link.textContent = 'Watch on YouTube';
     body.append(link);
     card.append(body);
-    target.append(card);
+    (video.destination === 'celebrations' ? celebrationTarget : target).append(card);
   }
 } catch (error) {
   console.error('Approved community videos:', error);
   notice.textContent = 'Community videos are temporarily unavailable. Please try again later.';
+  document.getElementById('celebrationVideoStatus').textContent = 'Celebration videos are temporarily unavailable.';
 }
 </script>
 <script src="indx.js"></script><script>document.querySelector('[data-page="church-life"]')?.classList.add('active');</script>
