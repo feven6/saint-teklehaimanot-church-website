@@ -161,20 +161,75 @@ function renderItem(item) {
     });
     $('reviewQueue').replaceChildren(...elements);
   }
-  async function loadApproved() {
-    try {
-      const result = await db.getDocs(db.query(db.collection(firestore,'submissions'),db.where('status','==','approved')));
-      const nodes = await Promise.all(result.docs.map(async doc => {
-        const d = doc.data(), node = document.createElement('article');
-        node.className = 'portal-card';
-        const h = document.createElement('h3'); h.textContent = d.title; node.append(h);
-        const p = document.createElement('p'); p.textContent = d.description || ''; node.append(p);
-        if (d.type === 'video' && d.videoId && /^[\w-]{11}$/.test(d.videoId)) {
-          const a = document.createElement('a'); a.href='https://www.youtube.com/watch?v='+d.videoId; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent='Watch on YouTube'; node.append(a);
-        }
-        return node;
-      }));
-      $('approvedGallery').replaceChildren(...nodes);
-    } catch(err) { status('Unable to load approved gallery: '+err.message); }
+async function loadApproved() {
+  try {
+    const result = await db.getDocs(
+      db.query(
+        db.collection(firestore, 'submissions'),
+        db.where('status', '==', 'approved')
+      )
+    );
+
+    const nodes = result.docs.map(doc => {
+      const d = doc.data();
+      const node = document.createElement('article');
+      node.className = 'portal-card';
+
+      const h = document.createElement('h3');
+      h.textContent = d.title;
+      node.append(h);
+
+      const p = document.createElement('p');
+      p.textContent = d.description || '';
+      node.append(p);
+
+      if (d.type === 'video' &&
+          d.videoId &&
+          /^[A-Za-z0-9_-]{11}$/.test(d.videoId)) {
+        const a = document.createElement('a');
+        a.href = 'https://www.youtube.com/watch?v=' + d.videoId;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = 'Watch on YouTube';
+        node.append(a);
+      }
+
+      // Only show this button to administrators.
+      if (admin) {
+        const button = document.createElement('button');
+        button.className = 'btn btn-outline';
+        button.textContent = 'Remove from Public Gallery';
+
+        button.addEventListener('click', async () => {
+          if (!window.confirm(
+            'Remove this video from the public gallery?'
+          )) return;
+
+          try {
+            await db.updateDoc(doc.ref, {
+              status: 'removed',
+              reviewedBy: user.uid,
+              reviewedAt: db.serverTimestamp()
+            });
+
+            status('Video removed from public gallery.');
+            await loadApproved();
+          } catch (err) {
+            status(err.message);
+          }
+        });
+
+        node.append(button);
+      }
+
+      return node;
+    });
+
+    $('approvedGallery').replaceChildren(...nodes);
+
+  } catch (err) {
+    status('Unable to load approved gallery: ' + err.message);
   }
+}
+
 }

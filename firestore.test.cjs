@@ -1,4 +1,4 @@
-
+const fs = require("node:fs");
 
 const {
   initializeTestEnvironment,
@@ -22,8 +22,9 @@ async function main() {
   const testEnv = await initializeTestEnvironment({
     projectId: "demo-church-security",
     firestore: {
-      host: "127.0.0.1",
-      port: 8080
+        host: "127.0.0.1",
+        port: 8080,
+        rules: fs.readFileSync("firestore.rules", "utf8")
     }
   });
 
@@ -241,6 +242,49 @@ async function main() {
     );
 
     console.log("PASS: Members cannot delete submissions.");
+
+
+    // Test 12: Regular members cannot remove approved videos.
+    await assertFails(
+      updateDoc(
+        doc(db, "submissions", "test-video"),
+        {
+          status: "removed",
+          reviewedBy: "member1",
+          reviewedAt: serverTimestamp()
+        }
+      )
+    );
+
+    console.log("PASS: Members cannot remove approved videos.");
+
+
+    // Test 13: Administrators can remove approved videos.
+    await assertSucceeds(
+      updateDoc(
+        doc(admin.firestore(), "submissions", "test-video"),
+        {
+          status: "removed",
+          reviewedBy: "admin1",
+          reviewedAt: serverTimestamp()
+        }
+      )
+    );
+
+    console.log("PASS: Administrators can remove approved videos.");
+
+
+    // Test 14: Visitors cannot view removed videos.
+    await assertFails(
+      getDoc(
+        doc(visitor.firestore(), "submissions", "test-video")
+      )
+    );
+
+    console.log("PASS: Visitors cannot view removed videos.");
+
+
+
 
 
   } finally {
